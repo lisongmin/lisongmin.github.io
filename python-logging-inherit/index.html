@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+      <!-- Enable responsiveness on mobile devices-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+      <title>听风小筑 - python logging继承关系</title>
+
+      
+
+      
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/slideout/1.0.1/slideout.min.js"></script>
+          
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+
+          <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+          <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-zWYbd0NBwgTsgIdFKVprSfTh1mbMPe5Hz1X3yY4Sd1h/K1cQoUe36OGwAGz/PcDy" crossorigin="anonymous"></script>
+              
+          <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"
+                  onload="renderMathInElement(document.body);"></script>
+              
+          
+      
+
+      
+          <link rel="stylesheet" href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;site.css">
+          
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+          
+      
+
+      
+      
+    </head>
+
+    <body>
+        <div class="container">
+
+            <div id="mobile-navbar" class="mobile-navbar">
+              <div class="mobile-header-logo">
+                <a href="/" class="logo">听风小筑</a>
+              </div>
+              <div class="mobile-navbar-icon icon-out">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+
+            <nav id="mobile-menu" class="mobile-menu slideout-menu slideout-menu-left">
+              <ul class="mobile-menu-list">
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io">
+                            Home
+                        </a>
+                    </li>
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;categories">
+                            Categories
+                        </a>
+                    </li>
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;tags">
+                            Tags
+                        </a>
+                    </li>
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;i-read">
+                            I-Read
+                        </a>
+                    </li>
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;about">
+                            About
+                        </a>
+                    </li>
+                
+              </ul>
+            </nav>
+
+            <header id="header">
+                <div class="logo"><a href="https:&#x2F;&#x2F;lisongmin.github.io">听风小筑</a></div>
+                <nav class="menu">
+                    <ul>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;lisongmin.github.io">
+                                    Home
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;categories">
+                                    Categories
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;tags">
+                                    Tags
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;i-read">
+                                    I-Read
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;about">
+                                    About
+                                </a>
+                            </li>
+                        
+                    </ul>
+                </nav>
+            </header>
+
+            <main>
+                <div class="content" id="mobile-panel">
+                    
+
+
+<div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content always-active">
+        <nav id="TableOfContents">
+            <ul>
+                
+                <li>
+                    <a href="https://lisongmin.github.io/python-logging-inherit/#python-loggingji-cheng-guan-xi" class="toc-link">python logging继承关系</a>
+                    
+                    <ul>
+                        
+                        <li>
+                            <a href="https://lisongmin.github.io/python-logging-inherit/#loggerde-ri-zhi-ji-bie" class="toc-link">logger的日志级别</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://lisongmin.github.io/python-logging-inherit/#ri-zhi-ji-lu-de-ji-zhi" class="toc-link">日志记录的机制</a>
+                        </li>
+                        
+                    </ul>
+                    
+                </li>
+                
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+<article class="post">
+    
+    <header class="post__header">
+        <h1 class="post__title">
+            <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;python-logging-inherit&#x2F;">python logging继承关系</a>
+        </h1>
+        <div class="post__meta">
+            <span class="post__time">2019-11-03</span>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+      <h1 id="python-loggingji-cheng-guan-xi">python logging继承关系</h1>
+<p>这篇文章主要解析python logging模块不同logger间日志级别的继承关系，以及日志输出的机制。</p>
+<p>在python的logging模块中，通过<code>logging.getLogger()</code>函数可以获取到指定的logger，如果没有指定参数，
+那么返回的是root logger. 通过指定不同的logger名称，这个函数可以返回指定的logger.这里，logger名字
+本身体现了logger的继承关系，它通过&quot;.&quot;分隔父logger和子logger，可以存在很多个&quot;.&quot;，他们一路继承下来。</p>
+<p>如&quot;a.b&quot;这个logger存在一个父logger&quot;a&quot;, 而&quot;a&quot;则从root logger继承而来。如下图所示：</p>
+<p><img src="/assets/python-logging-inherit.svg" alt="logging inherit" /></p>
+<p>每个logger下面可能存在0个或多个handler，handler实现日志的输出，每个handler对应一个输出目标。
+通过配置多个handler，可以实现同时输出到文件，控制台的功能。
+同时，每个handler可以定制日志级别，从而使得某些日志级别可以只输出到文件中，而不输出到控制台。</p>
+<h2 id="loggerde-ri-zhi-ji-bie">logger的日志级别</h2>
+<p>每个logger都可以设置日志级别，如果没有设置，默认是NOSET。当logger的日志级别是NOSET时，它会按照继承关系向上层获取日志级别，
+直到日志级别不是NOSET，或达到root logger为止。如以上关系，</p>
+<ul>
+<li>a.b logger是NOSET，那么他会获取a logger的日志级别</li>
+<li>如果a logger的日志级别不是NOSET，那么a.b logger的日志级别将采用a logger的日志级别</li>
+<li>如果a logger的日志级别也是NOSET，那么继续向上取root logger的日志级别。
+如果没有手动设置，root logger默认的日志级别是WARNING</li>
+</ul>
+<p>这个机制在<a rel="noopener" target="_blank" href="https://docs.python.org/3/library/logging.html#logging.Logger.setLevel">官方文档setLevel</a>中有详细介绍。</p>
+<h2 id="ri-zhi-ji-lu-de-ji-zhi">日志记录的机制</h2>
+<p>logger中，有一个字段<a rel="noopener" target="_blank" href="https://docs.python.org/3/library/logging.html#logging.Logger.propagate">propagate</a>，这个字段用于控制是否
+继承父logger的handler，默认是继承。</p>
+<p>当这个选项打开时，logger除了将日志写入自身的handler外，还会将日志写入祖先的handler中。</p>
+<p>假设我们往a.b这个logger写入一条日志，其过程如下：</p>
+<ol>
+<li>日志的级别是否大于等于a.b这个logger设定的日志级别？
+<ul>
+<li>如果日志级别小于a.b logger的日志级别，那么不需要记录日志，<strong>流程结束</strong>。</li>
+<li>否则，继续往下执行</li>
+</ul>
+</li>
+<li>日志的级别是否大于等于a.b的handler设置定的日志级别？
+<ul>
+<li>如果日志级别小于a.b handler的日志级别，那么不需要往这个handler写入日志</li>
+<li>否则，将日志写入这个handler中</li>
+</ul>
+</li>
+<li>检查propagate标记
+<ul>
+<li>如果propagate标记是False，不需要向上层handler输出，<strong>流程结束</strong></li>
+<li>否则，准备往上层logger的handler输出日志</li>
+</ul>
+</li>
+<li>对于上层logger的每一个handler，判断日志的级别是否大于等于handler的日志级别
+<ul>
+<li>如果日志级别小于handler的日志级别，那么不需要往这个handler写入日志</li>
+<li>否则，将日志写入这个handler中</li>
+</ul>
+</li>
+<li>重复3, 4步骤，直到满足退出条件。</li>
+</ol>
+<p>这里需要注意的是，logger的日志级别用于在入口处过滤，handler用于出口处过滤，在propagate的时候，已经过了输入阶段，到达输出阶段，
+不需要再判断上层logger的日志级别，只判断handler的级别是否满足。</p>
+
+    </div>
+
+    
+    
+
+    <div class="post-footer">
+        
+            
+                <div class="post-tags">
+                    
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;tags&#x2F;logging&#x2F;">#logging</a>
+                    
+                </div>
+            
+            
+                <div class="post-nav">
+                    
+                        <a class="previous" href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;os-systemd-automount&#x2F;">‹ 通过systemd支持自动挂载</a>
+                    
+                    
+                        <a class="next" href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;os-acl-on-directory&#x2F;">在linux下如何设置一个文件夹让群组可读写 ›</a>
+                    
+                    
+                    
+                </div>
+            
+
+        
+
+    </div>
+
+    
+
+    
+<div class="utterances"></div>
+
+</article>
+
+
+                </div>
+            </main>
+
+            
+            
+        </div>
+
+      
+
+          <script type="text/javascript" src="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;even.js" ></script>
+      
+<script src="https://utteranc.es/client.js"
+        repo="lisongmin/lisongmin.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true});</script>
+
+    </body>
+
+</html>

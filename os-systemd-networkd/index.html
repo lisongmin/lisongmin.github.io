@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+      <!-- Enable responsiveness on mobile devices-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+      <title>听风小筑 - 使用systemd-networkd管理网络</title>
+
+      
+
+      
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/slideout/1.0.1/slideout.min.js"></script>
+          
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+
+          <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+          <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-zWYbd0NBwgTsgIdFKVprSfTh1mbMPe5Hz1X3yY4Sd1h/K1cQoUe36OGwAGz/PcDy" crossorigin="anonymous"></script>
+              
+          <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"
+                  onload="renderMathInElement(document.body);"></script>
+              
+          
+      
+
+      
+          <link rel="stylesheet" href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;site.css">
+          
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+          
+      
+
+      
+      
+    </head>
+
+    <body>
+        <div class="container">
+
+            <div id="mobile-navbar" class="mobile-navbar">
+              <div class="mobile-header-logo">
+                <a href="/" class="logo">听风小筑</a>
+              </div>
+              <div class="mobile-navbar-icon icon-out">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+
+            <nav id="mobile-menu" class="mobile-menu slideout-menu slideout-menu-left">
+              <ul class="mobile-menu-list">
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io">
+                            Home
+                        </a>
+                    </li>
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;categories">
+                            Categories
+                        </a>
+                    </li>
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;tags">
+                            Tags
+                        </a>
+                    </li>
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;i-read">
+                            I-Read
+                        </a>
+                    </li>
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;about">
+                            About
+                        </a>
+                    </li>
+                
+              </ul>
+            </nav>
+
+            <header id="header">
+                <div class="logo"><a href="https:&#x2F;&#x2F;lisongmin.github.io">听风小筑</a></div>
+                <nav class="menu">
+                    <ul>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;lisongmin.github.io">
+                                    Home
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;categories">
+                                    Categories
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;tags">
+                                    Tags
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;i-read">
+                                    I-Read
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;about">
+                                    About
+                                </a>
+                            </li>
+                        
+                    </ul>
+                </nav>
+            </header>
+
+            <main>
+                <div class="content" id="mobile-panel">
+                    
+
+
+<div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content always-active">
+        <nav id="TableOfContents">
+            <ul>
+                
+                <li>
+                    <a href="https://lisongmin.github.io/os-systemd-networkd/#shi-yong-systemd-networkdguan-li-wang-luo" class="toc-link">使用systemd-networkd管理网络</a>
+                    
+                    <ul>
+                        
+                        <li>
+                            <a href="https://lisongmin.github.io/os-systemd-networkd/#ting-zhi-xian-you-wang-luo-guan-li-fu-wu" class="toc-link">停止现有网络管理服务</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://lisongmin.github.io/os-systemd-networkd/#pei-zhi-you-xian-wang-luo" class="toc-link">配置有线网络</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://lisongmin.github.io/os-systemd-networkd/#pei-zhi-wu-xian-wang-luo" class="toc-link">配置无线网络</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://lisongmin.github.io/os-systemd-networkd/#qi-dong-fu-wu-ji-kai-ji-zi-qi-dong" class="toc-link">启动服务及开机自启动</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://lisongmin.github.io/os-systemd-networkd/#libvirt-wang-luo-wu-fa-qi-dong-wen-ti" class="toc-link">libvirt 网络无法启动问题</a>
+                        </li>
+                        
+                    </ul>
+                    
+                </li>
+                
+                <li>
+                    <a href="https://lisongmin.github.io/os-systemd-networkd/#libvirtd-you-xu-ni-ji-yun-xing-shi-br0-ba-wang-xian-hou-ipbu-hui-zi-dong-xiao-shi" class="toc-link">libvirtd 有虚拟机运行时，br0 拔网线后，ip不会自动消失</a>
+                    
+                </li>
+                
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+<article class="post">
+    
+    <header class="post__header">
+        <h1 class="post__title">
+            <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;os-systemd-networkd&#x2F;">使用systemd-networkd管理网络</a>
+        </h1>
+        <div class="post__meta">
+            <span class="post__time">2020-03-01</span>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+      <h1 id="shi-yong-systemd-networkdguan-li-wang-luo">使用systemd-networkd管理网络</h1>
+<p>早在一个月前，就将网络管理从<code>netctl</code>切换到<code>systemd-networkd</code>了，
+虽然很反对systemd什么都搞，但systemd-networkd确实要用，配置也比较简单。</p>
+<h2 id="ting-zhi-xian-you-wang-luo-guan-li-fu-wu">停止现有网络管理服务</h2>
+<p>这里主要介绍配置有线网络，以及无线网络的过程。
+在开始配置前，需要把正在使用的网络管理服务停止掉，以避免出现冲突。</p>
+<h2 id="pei-zhi-you-xian-wang-luo">配置有线网络</h2>
+<p>有线网络主要配置时，考虑到可能使用手机usb连接共享收集的网络，为了保持命名的一致性，
+通过 bridge 来归一化所有有线连接。配置如下：</p>
+<ol>
+<li>
+<p>将所有有线连接都作为br0的底层设备</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">$ cat /etc/systemd/network/19-en.network
+</span></code></pre><pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">[Match]
+</span><span style="color:#80cbc4;">Name=en*
+
+</span><span style="color:#80cbc4;">[Network]
+</span><span style="color:#80cbc4;">Bridge=br0
+</span></code></pre></li>
+<li>
+<p>定义br0设备</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">$ cat /etc/systemd/network/20-br0.netdev
+</span></code></pre><pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">[NetDev]
+</span><span style="color:#80cbc4;">Name=br0
+</span><span style="color:#80cbc4;">Kind=bridge
+</span></code></pre></li>
+<li>
+<p>配置br0的网络</p>
+<p>这里采用了dhcp的方式获取ip，由于我采用了独立的DNS解析，这里配置不使用DNS.</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">$ cat /etc/systemd/network/20-br0.network
+</span></code></pre><pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">[Match]
+</span><span style="color:#80cbc4;">Name=br0
+
+</span><span style="color:#80cbc4;">[Network]
+</span><span style="color:#80cbc4;">DHCP=yes
+</span><span style="color:#80cbc4;">IPForward=yes
+</span><span style="color:#80cbc4;">IPv6AcceptRA=true
+
+</span><span style="color:#80cbc4;">[DHCP]
+</span><span style="color:#80cbc4;">UseDNS=false
+</span><span style="color:#80cbc4;">RouteMetric=100
+</span></code></pre></li>
+</ol>
+<p>以上是有线网络的所有配置。</p>
+<h2 id="pei-zhi-wu-xian-wang-luo">配置无线网络</h2>
+<p>接下来是无线网络的配置，无线网络采用iwd来管理wifi。</p>
+<ol>
+<li>
+<p>启动iwd服务</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">systemctl start iwd.service
+</span></code></pre></li>
+<li>
+<p>扫描并设置wifi密码</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">$ iwctl
+</span><span style="color:#80cbc4;">[iwd]# device list
+</span><span style="color:#80cbc4;">                                    Devices                                   *
+</span><span style="color:#80cbc4;">--------------------------------------------------------------------------------
+</span><span style="color:#80cbc4;">  Name                Address             Powered   Adapter   Mode
+</span><span style="color:#80cbc4;">--------------------------------------------------------------------------------
+</span><span style="color:#80cbc4;">  wlan0               54:27:1e:4f:14:87   on        phy0      station
+
+</span><span style="color:#80cbc4;">[iwd]# station wlan0 scan
+</span><span style="color:#80cbc4;">[iwd]# station wlan0 get-networks
+</span><span style="color:#80cbc4;">                               Available networks                             *
+</span><span style="color:#80cbc4;">--------------------------------------------------------------------------------
+</span><span style="color:#80cbc4;">    Network name                    Security  Signal
+</span><span style="color:#80cbc4;">--------------------------------------------------------------------------------
+</span><span style="color:#80cbc4;">  &gt; CMCC-cqhu                       psk       ****
+
+</span><span style="color:#80cbc4;">[iwd]# station wlan0 connect CMCC-cqhu
+</span></code></pre></li>
+<li>
+<p>设置无线网络的配置</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">$ cat /etc/systemd/network/25-wireless.network
+</span></code></pre><pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">[Match]
+</span><span style="color:#80cbc4;">Name=wl*
+
+</span><span style="color:#80cbc4;">[Network]
+</span><span style="color:#80cbc4;">DHCP=yes
+</span><span style="color:#80cbc4;">IPForward=yes
+</span><span style="color:#80cbc4;">IPv6AcceptRA=true
+
+</span><span style="color:#80cbc4;">[DHCP]
+</span><span style="color:#80cbc4;">UseDNS=false
+</span><span style="color:#80cbc4;">RouteMetric=200
+</span></code></pre></li>
+</ol>
+<h2 id="qi-dong-fu-wu-ji-kai-ji-zi-qi-dong">启动服务及开机自启动</h2>
+<p>使用<code>systemctl start systemd-networkd</code>启动服务，看配置是否生效，网络是否正常。</p>
+<p>在网络正常后，通过下面命令设置开机自启动，完成所有配置。</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">systemctl enable iwd.service
+systemctl enable systemd-networkd.service
+</span></code></pre><h2 id="libvirt-wang-luo-wu-fa-qi-dong-wen-ti">libvirt 网络无法启动问题</h2>
+<p>在使用systemd-networkd管理网络后，libvirtd开机无法自启动网卡，会有下面的报错：</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">enabling IPv6 forwarding with RA routes without accept_ra set to 2 is likely to cause routes loss
+</span></code></pre>
+<p><a rel="noopener" target="_blank" href="https://bugzilla.redhat.com/show_bug.cgi?id=1639087">相关问题单链接</a></p>
+<p><code>man systemd.network</code> 可以看到systemd-networkd对这个参数的相关解释:</p>
+<p>Note that kernel's implementation of the IPv6 RA protocol is always disabled,
+regardless of this setting. If this option is enabled, a userspace implementation
+of the IPv6 RA protocol is used, and the kernel's own implementation remains disabled,
+since systemd-networkd needs to know all details supplied in the advertisements,
+and these are not available from the kernel if the kernel's own implementation is used.</p>
+<p>目前通过在libvirtd的脚本中手动启动网卡来规避这个问题：</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">$ cat /etc/systemd/system/libvirtd.service.d/override.conf
+</span></code></pre><pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">[Service]
+# set accept_ra
+ExecStartPost=-/usr/bin/sysctl -w net.ipv6.conf.wlan0.accept_ra=2
+ExecStartPost=-/usr/bin/sysctl -w net.ipv6.conf.br0.accept_ra=2
+# start network
+ExecStartPost=-/usr/bin/virsh net-start --network net99
+ExecStartPost=-/usr/bin/virsh net-start --network net100
+ExecStartPost=-/usr/bin/virsh net-start --network default
+# unset accept_ra
+ExecStartPost=-/usr/bin/sysctl -w net.ipv6.conf.wlan0.accept_ra=0
+ExecStartPost=-/usr/bin/sysctl -w net.ipv6.conf.br0.accept_ra=0
+</span></code></pre><h1 id="libvirtd-you-xu-ni-ji-yun-xing-shi-br0-ba-wang-xian-hou-ipbu-hui-zi-dong-xiao-shi">libvirtd 有虚拟机运行时，br0 拔网线后，ip不会自动消失</h1>
+<p>在 libvirtd 没有虚拟机运行时，拔网线后，上面自动分配的ip会被 systemd-networkd 清理掉，
+但如果 libvirtd 有虚拟机正在运行，那么拔网线后，br0 上面的ip不会清理，路由仍然存在，
+这导致拔网线后，不能自动切换到 wlan0 运行，因为br0的路由优先级比较高。</p>
+<p>这个问题目前还没找到自动解决的办法。</p>
+
+    </div>
+
+    
+    
+
+    <div class="post-footer">
+        
+            
+                <div class="post-tags">
+                    
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;tags&#x2F;systemd&#x2F;">#systemd</a>
+                    
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;tags&#x2F;network&#x2F;">#network</a>
+                    
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;tags&#x2F;iwd&#x2F;">#iwd</a>
+                    
+                </div>
+            
+            
+                <div class="post-nav">
+                    
+                        <a class="previous" href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;tools-nginx-proxy-pass&#x2F;">‹ nginx proxy_pass用法记录</a>
+                    
+                    
+                        <a class="next" href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;openwrt-erx&#x2F;">在 er-x 上部署 openwrt ›</a>
+                    
+                    
+                    
+                </div>
+            
+
+        
+
+    </div>
+
+    
+
+    
+<div class="utterances"></div>
+
+</article>
+
+
+                </div>
+            </main>
+
+            
+            
+        </div>
+
+      
+
+          <script type="text/javascript" src="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;even.js" ></script>
+      
+<script src="https://utteranc.es/client.js"
+        repo="lisongmin/lisongmin.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true});</script>
+
+    </body>
+
+</html>

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+      <!-- Enable responsiveness on mobile devices-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+      <title>听风小筑 - c++ 17 结构化绑定学习</title>
+
+      
+
+      
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/slideout/1.0.1/slideout.min.js"></script>
+          
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+
+          <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+          <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-zWYbd0NBwgTsgIdFKVprSfTh1mbMPe5Hz1X3yY4Sd1h/K1cQoUe36OGwAGz/PcDy" crossorigin="anonymous"></script>
+              
+          <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"
+                  onload="renderMathInElement(document.body);"></script>
+              
+          
+      
+
+      
+          <link rel="stylesheet" href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;site.css">
+          
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+          
+      
+
+      
+      
+    </head>
+
+    <body>
+        <div class="container">
+
+            <div id="mobile-navbar" class="mobile-navbar">
+              <div class="mobile-header-logo">
+                <a href="/" class="logo">听风小筑</a>
+              </div>
+              <div class="mobile-navbar-icon icon-out">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+
+            <nav id="mobile-menu" class="mobile-menu slideout-menu slideout-menu-left">
+              <ul class="mobile-menu-list">
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io">
+                            Home
+                        </a>
+                    </li>
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;categories">
+                            Categories
+                        </a>
+                    </li>
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;tags">
+                            Tags
+                        </a>
+                    </li>
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;i-read">
+                            I-Read
+                        </a>
+                    </li>
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;about">
+                            About
+                        </a>
+                    </li>
+                
+              </ul>
+            </nav>
+
+            <header id="header">
+                <div class="logo"><a href="https:&#x2F;&#x2F;lisongmin.github.io">听风小筑</a></div>
+                <nav class="menu">
+                    <ul>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;lisongmin.github.io">
+                                    Home
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;categories">
+                                    Categories
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;tags">
+                                    Tags
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;i-read">
+                                    I-Read
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;about">
+                                    About
+                                </a>
+                            </li>
+                        
+                    </ul>
+                </nav>
+            </header>
+
+            <main>
+                <div class="content" id="mobile-panel">
+                    
+
+
+<div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content always-active">
+        <nav id="TableOfContents">
+            <ul>
+                
+                <li>
+                    <a href="https://lisongmin.github.io/cpp-structed-binding/#c-17-jie-gou-hua-bang-ding-xue-xi" class="toc-link">c++ 17 结构化绑定学习</a>
+                    
+                    <ul>
+                        
+                        <li>
+                            <a href="https://lisongmin.github.io/cpp-structed-binding/#ying-yong-shi-li" class="toc-link">应用实例</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://lisongmin.github.io/cpp-structed-binding/#yan-shen-yue-du-std-tie" class="toc-link">延伸阅读 std::tie</a>
+                        </li>
+                        
+                    </ul>
+                    
+                </li>
+                
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+<article class="post">
+    
+    <header class="post__header">
+        <h1 class="post__title">
+            <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;cpp-structed-binding&#x2F;">c++ 17 结构化绑定学习</a>
+        </h1>
+        <div class="post__meta">
+            <span class="post__time">2019-06-08</span>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+      <h1 id="c-17-jie-gou-hua-bang-ding-xue-xi">c++ 17 结构化绑定学习</h1>
+<p>结构化绑定是c++17引入的新特性，它可以对数组，元组，结构体的成员变量进行绑定。</p>
+<p>根据我的理解，从使用角度来看，</p>
+<ul>
+<li>对数组的绑定会比较少一点，因为数组中保存的是相同元素，一般更常见的操作是遍历，需要对不同元素做不同处理的场景会比较少</li>
+<li>对结构体(类)的绑定次之，结构体(类)已经通过成员变量名来实现成员的区分，一般可以直接使用，不需要再做绑定。
+而且，当前版本的结构化绑定要求绑定所有成员变量，如果成员变量过多，会很麻烦，如果成员变量在当前作用域下不可用(如private成员)，也会造成无法绑定。</li>
+<li>大多数场景都是对元组（包括std::pair)的结构绑定。<strong>对元组的绑定则可以让我们的代码具有更高的可阅读性</strong>，可以从绑定的变量名识别元组中元素的类型，意义等。</li>
+</ul>
+<h2 id="ying-yong-shi-li">应用实例</h2>
+<p>结构化绑定的详细介绍可以参考<a rel="noopener" target="_blank" href="https://en.cppreference.com/w/cpp/language/structured_binding">cppreference</a>，
+这里通过一个实际的例子来帮助记忆：</p>
+<pre style="background-color:#fafafa;">
+<code class="language-c++" data-lang="c++"><span style="font-style:italic;color:#ccd7da;">// file: a.cpp
+// compile with `g++ -std=c++17 a.cpp`
+// run with `./a.out`
+</span><span style="font-style:italic;color:#7c4dff;">#include </span><span style="color:#39adb5;">&lt;</span><span style="color:#91b859;">iostream</span><span style="color:#39adb5;">&gt;
+</span><span style="font-style:italic;color:#7c4dff;">#include </span><span style="color:#39adb5;">&lt;</span><span style="color:#91b859;">string</span><span style="color:#39adb5;">&gt;
+</span><span style="font-style:italic;color:#7c4dff;">#include </span><span style="color:#39adb5;">&lt;</span><span style="color:#91b859;">tuple</span><span style="color:#39adb5;">&gt;
+
+</span><span style="font-style:italic;color:#7c4dff;">int </span><span style="color:#6182b8;">main</span><span style="color:#39adb5;">() {
+</span><span style="color:#80cbc4;">  std</span><span style="color:#39adb5;">::</span><span style="color:#80cbc4;">tuple</span><span style="color:#39adb5;">&lt;</span><span style="color:#80cbc4;">std</span><span style="color:#39adb5;">::</span><span style="color:#80cbc4;">string</span><span style="color:#39adb5;">,</span><span style="color:#80cbc4;"> std</span><span style="color:#39adb5;">::</span><span style="color:#80cbc4;">string</span><span style="color:#39adb5;">&gt; </span><span style="color:#6182b8;">record</span><span style="color:#39adb5;">{&quot;</span><span style="color:#91b859;">name</span><span style="color:#39adb5;">&quot;, &quot;</span><span style="color:#91b859;">email</span><span style="color:#39adb5;">&quot;};
+  </span><span style="font-style:italic;color:#7c4dff;">auto</span><span style="color:#39adb5;">&amp; [</span><span style="color:#80cbc4;">name</span><span style="color:#39adb5;">,</span><span style="color:#80cbc4;"> email</span><span style="color:#39adb5;">] =</span><span style="color:#80cbc4;"> record</span><span style="color:#39adb5;">;
+
+</span><span style="color:#80cbc4;">  std</span><span style="color:#39adb5;">::</span><span style="color:#80cbc4;">cout </span><span style="color:#39adb5;">&lt;&lt;</span><span style="color:#80cbc4;"> name </span><span style="color:#39adb5;">&lt;&lt; &quot;\n&quot;;
+</span><span style="color:#80cbc4;">  std</span><span style="color:#39adb5;">::</span><span style="color:#80cbc4;">cout </span><span style="color:#39adb5;">&lt;&lt;</span><span style="color:#80cbc4;"> email </span><span style="color:#39adb5;">&lt;&lt; &quot;\n&quot;;
+  </span><span style="font-style:italic;color:#7c4dff;">return </span><span style="color:#f76d47;">0</span><span style="color:#39adb5;">;
+}
+</span></code></pre>
+<p>这里，重点关注<code>auto&amp; [name, email] = record</code>这一行，它实现了结构化绑定，
+将<code>record</code>这个tuple实例中的两个成员分别绑定到了变量<code>name</code>和<code>email</code>中。</p>
+<p>注意，这里使用了<code>auto&amp;</code>的方式绑定，这意味着<code>name</code>和<code>email</code>是对<code>record</code>中成员的引用，
+他们不会拷贝，这节省了开销，同时也意味着，这两个变量的生命周期不能超过<code>record</code>的生命周期，
+否则会出现不可预知的错误。</p>
+<h2 id="yan-shen-yue-du-std-tie">延伸阅读 std::tie</h2>
+<p>在c++17引入结构化绑定前，c++11就已经存在std::tie这个函数了，它可以用来构建一个左值引用的元组，
+也可以用于将元组中的元素从元组中拆解出来。</p>
+<p>拆解的动作一般可以使用结构化绑定来替代，这里主要介绍一个构建左值引用的元组的用法, 它可以用于简化
+自定义数据结构的比较操作的实现。</p>
+<p>假定我们有这么一个数据结构，要我们实现<code>&lt;</code>操作符的重载：</p>
+<pre style="background-color:#fafafa;">
+<code class="language-c++" data-lang="c++"><span style="font-style:italic;color:#7c4dff;">struct </span><span style="color:#80cbc4;">A </span><span style="color:#39adb5;">{
+  </span><span style="font-style:italic;color:#7c4dff;">int</span><span style="color:#80cbc4;"> a</span><span style="color:#39adb5;">;
+  </span><span style="font-style:italic;color:#7c4dff;">int</span><span style="color:#80cbc4;"> b</span><span style="color:#39adb5;">;
+  </span><span style="font-style:italic;color:#7c4dff;">int</span><span style="color:#80cbc4;"> c</span><span style="color:#39adb5;">;
+
+  </span><span style="font-style:italic;color:#7c4dff;">bool </span><span style="color:#6182b8;">operator&lt;</span><span style="color:#39adb5;">(</span><span style="color:#7c4dff;">const</span><span style="color:#80cbc4;"> A</span><span style="color:#39adb5;">&amp; </span><span style="color:#f76d47;">another</span><span style="color:#39adb5;">) </span><span style="color:#7c4dff;">const noexcept</span><span style="color:#39adb5;">;
+};
+</span></code></pre>
+<p>在以前，我们可能需要这么实现：</p>
+<pre style="background-color:#fafafa;">
+<code class="language-c++" data-lang="c++"><span style="color:#80cbc4;">
+</span><span style="font-style:italic;color:#7c4dff;">bool </span><span style="color:#80cbc4;">A</span><span style="color:#39adb5;">::</span><span style="color:#6182b8;">operator&lt;</span><span style="color:#39adb5;">(</span><span style="color:#7c4dff;">const</span><span style="color:#80cbc4;"> A</span><span style="color:#39adb5;">&amp; </span><span style="color:#f76d47;">another</span><span style="color:#39adb5;">) </span><span style="color:#7c4dff;">const noexcept</span><span style="color:#39adb5;">{
+  </span><span style="font-style:italic;color:#7c4dff;">return</span><span style="color:#80cbc4;"> a </span><span style="color:#39adb5;">&lt;</span><span style="color:#80cbc4;"> another</span><span style="color:#39adb5;">.</span><span style="color:#80cbc4;">a </span><span style="color:#39adb5;">||</span><span style="color:#80cbc4;"> \
+      </span><span style="color:#39adb5;">(</span><span style="color:#80cbc4;">a </span><span style="color:#39adb5;">==</span><span style="color:#80cbc4;"> another</span><span style="color:#39adb5;">.</span><span style="color:#80cbc4;">a </span><span style="color:#39adb5;">&amp;&amp; (</span><span style="color:#80cbc4;">b </span><span style="color:#39adb5;">&lt;</span><span style="color:#80cbc4;"> another</span><span style="color:#39adb5;">.</span><span style="color:#80cbc4;">b </span><span style="color:#39adb5;">||</span><span style="color:#80cbc4;"> \
+          </span><span style="color:#39adb5;">(</span><span style="color:#80cbc4;"> b </span><span style="color:#39adb5;">==</span><span style="color:#80cbc4;"> another</span><span style="color:#39adb5;">.</span><span style="color:#80cbc4;">b </span><span style="color:#39adb5;">&amp;&amp;</span><span style="color:#80cbc4;"> c </span><span style="color:#39adb5;">&lt;</span><span style="color:#80cbc4;"> another</span><span style="color:#39adb5;">.</span><span style="color:#80cbc4;">c</span><span style="color:#39adb5;">)));
+}
+</span></code></pre>
+<p>里面存在较多的逻辑操作，容易写错，如果成员变量增多，表达式也会变得更加复杂。而如果使用tie，我们的代码将会变得简洁而易于理解：</p>
+<pre style="background-color:#fafafa;">
+<code class="language-c++" data-lang="c++"><span style="color:#80cbc4;">
+</span><span style="font-style:italic;color:#7c4dff;">bool </span><span style="color:#80cbc4;">A</span><span style="color:#39adb5;">::</span><span style="color:#6182b8;">operator&lt;</span><span style="color:#39adb5;">(</span><span style="color:#7c4dff;">const</span><span style="color:#80cbc4;"> A</span><span style="color:#39adb5;">&amp; </span><span style="color:#f76d47;">another</span><span style="color:#39adb5;">) </span><span style="color:#7c4dff;">const noexcept</span><span style="color:#39adb5;">{
+  </span><span style="font-style:italic;color:#7c4dff;">return </span><span style="color:#6182b8;">std</span><span style="color:#39adb5;">::</span><span style="color:#6182b8;">tie</span><span style="color:#39adb5;">(</span><span style="color:#6182b8;">a</span><span style="color:#39adb5;">,</span><span style="color:#6182b8;"> b</span><span style="color:#39adb5;">,</span><span style="color:#6182b8;"> c</span><span style="color:#39adb5;">) &lt; </span><span style="color:#6182b8;">std</span><span style="color:#39adb5;">::</span><span style="color:#6182b8;">tie</span><span style="color:#39adb5;">(</span><span style="color:#6182b8;">another</span><span style="color:#39adb5;">.</span><span style="color:#80cbc4;">a</span><span style="color:#39adb5;">,</span><span style="color:#6182b8;"> another</span><span style="color:#39adb5;">.</span><span style="color:#80cbc4;">b</span><span style="color:#39adb5;">,</span><span style="color:#6182b8;"> another</span><span style="color:#39adb5;">.</span><span style="color:#80cbc4;">c</span><span style="color:#39adb5;">);
+}
+</span></code></pre>
+<p>这里，通过左值引用构建了两个临时的tuple，然后通过tuple的比较操作来实现两个结构的比较。由于是左值引用，
+这里是不需要进行拷贝动作的，所以并不存在额外的开销。</p>
+
+    </div>
+
+    
+    
+
+    <div class="post-footer">
+        
+            
+                <div class="post-tags">
+                    
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;tags&#x2F;structured-binding&#x2F;">#structured binding</a>
+                    
+                </div>
+            
+            
+                <div class="post-nav">
+                    
+                        <a class="previous" href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;cpp-cheat-sheet&#x2F;">‹ 我的c++知识速查表</a>
+                    
+                    
+                        <a class="next" href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;cpp-std-remove&#x2F;">std::remove_if相关函数学习 ›</a>
+                    
+                    
+                    
+                </div>
+            
+
+        
+
+    </div>
+
+    
+
+    
+<div class="utterances"></div>
+
+</article>
+
+
+                </div>
+            </main>
+
+            
+            
+        </div>
+
+      
+
+          <script type="text/javascript" src="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;even.js" ></script>
+      
+<script src="https://utteranc.es/client.js"
+        repo="lisongmin/lisongmin.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true});</script>
+
+    </body>
+
+</html>

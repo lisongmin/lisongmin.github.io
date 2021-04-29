@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+      <!-- Enable responsiveness on mobile devices-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+      <title>听风小筑 - python多重继承顺序</title>
+
+      
+
+      
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/slideout/1.0.1/slideout.min.js"></script>
+          
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+
+          <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+          <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-zWYbd0NBwgTsgIdFKVprSfTh1mbMPe5Hz1X3yY4Sd1h/K1cQoUe36OGwAGz/PcDy" crossorigin="anonymous"></script>
+              
+          <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"
+                  onload="renderMathInElement(document.body);"></script>
+              
+          
+      
+
+      
+          <link rel="stylesheet" href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;site.css">
+          
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+          
+      
+
+      
+      
+    </head>
+
+    <body>
+        <div class="container">
+
+            <div id="mobile-navbar" class="mobile-navbar">
+              <div class="mobile-header-logo">
+                <a href="/" class="logo">听风小筑</a>
+              </div>
+              <div class="mobile-navbar-icon icon-out">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+
+            <nav id="mobile-menu" class="mobile-menu slideout-menu slideout-menu-left">
+              <ul class="mobile-menu-list">
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io">
+                            Home
+                        </a>
+                    </li>
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;categories">
+                            Categories
+                        </a>
+                    </li>
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;tags">
+                            Tags
+                        </a>
+                    </li>
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;i-read">
+                            I-Read
+                        </a>
+                    </li>
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;about">
+                            About
+                        </a>
+                    </li>
+                
+              </ul>
+            </nav>
+
+            <header id="header">
+                <div class="logo"><a href="https:&#x2F;&#x2F;lisongmin.github.io">听风小筑</a></div>
+                <nav class="menu">
+                    <ul>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;lisongmin.github.io">
+                                    Home
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;categories">
+                                    Categories
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;tags">
+                                    Tags
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;i-read">
+                                    I-Read
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;about">
+                                    About
+                                </a>
+                            </li>
+                        
+                    </ul>
+                </nav>
+            </header>
+
+            <main>
+                <div class="content" id="mobile-panel">
+                    
+
+
+<div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content always-active">
+        <nav id="TableOfContents">
+            <ul>
+                
+                <li>
+                    <a href="https://lisongmin.github.io/python-mro/#pythonduo-zhong-ji-cheng-shun-xu" class="toc-link">python多重继承顺序</a>
+                    
+                    <ul>
+                        
+                        <li>
+                            <a href="https://lisongmin.github.io/python-mro/#jian-yao-shuo-ming" class="toc-link">简要说明</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://lisongmin.github.io/python-mro/#fu-za-li-zi" class="toc-link">复杂例子</a>
+                        </li>
+                        
+                    </ul>
+                    
+                </li>
+                
+                <li>
+                    <a href="https://lisongmin.github.io/python-mro/#can-kao" class="toc-link">参考</a>
+                    
+                </li>
+                
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+<article class="post">
+    
+    <header class="post__header">
+        <h1 class="post__title">
+            <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;python-mro&#x2F;">python多重继承顺序</a>
+        </h1>
+        <div class="post__meta">
+            <span class="post__time">2019-09-30</span>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+      <h1 id="pythonduo-zhong-ji-cheng-shun-xu">python多重继承顺序</h1>
+<p>之前一直习惯使用单重继承，主要是对python的多重继承继承顺序不太了解，不太敢使用。
+今天特意去学习python多重继承的关系，以增强自身的底蕴。</p>
+<h2 id="jian-yao-shuo-ming">简要说明</h2>
+<p>python的多重继承采用的是线性继承关系，一般按照从左到右，从顶层到底层的方式排序。
+我们通过下面这个例子来做一个说明：</p>
+<pre style="background-color:#fafafa;">
+<code class="language-python" data-lang="python"><span style="font-style:italic;color:#ccd7da;">#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+
+</span><span style="font-style:italic;color:#7c4dff;">class </span><span style="color:#ffb62c;">X</span><span style="color:#39adb5;">:
+    </span><span style="font-style:italic;color:#7c4dff;">def </span><span style="color:#6182b8;">name</span><span style="color:#39adb5;">(</span><span style="color:#f76d47;">self</span><span style="color:#39adb5;">):
+        </span><span style="font-style:italic;color:#7c4dff;">if </span><span style="color:#6182b8;">hasattr</span><span style="color:#39adb5;">(</span><span style="color:#6182b8;">super</span><span style="color:#39adb5;">(), &#39;</span><span style="color:#91b859;">name</span><span style="color:#39adb5;">&#39;):
+            </span><span style="color:#6182b8;">print</span><span style="color:#39adb5;">(</span><span style="font-style:italic;color:#7c4dff;">f</span><span style="color:#39adb5;">&quot;</span><span style="color:#91b859;">super of X is </span><span style="color:#39adb5;">{</span><span style="color:#6182b8;">super</span><span style="color:#39adb5;">().</span><span style="color:#6182b8;">name</span><span style="color:#39adb5;">()}&quot;)
+
+        </span><span style="font-style:italic;color:#7c4dff;">return </span><span style="color:#39adb5;">&quot;</span><span style="color:#91b859;">X</span><span style="color:#39adb5;">&quot;
+
+
+</span><span style="font-style:italic;color:#7c4dff;">class </span><span style="color:#ffb62c;">Y</span><span style="color:#39adb5;">:
+    </span><span style="font-style:italic;color:#7c4dff;">def </span><span style="color:#6182b8;">name</span><span style="color:#39adb5;">(</span><span style="color:#f76d47;">self</span><span style="color:#39adb5;">):
+        </span><span style="font-style:italic;color:#7c4dff;">if </span><span style="color:#6182b8;">hasattr</span><span style="color:#39adb5;">(</span><span style="color:#6182b8;">super</span><span style="color:#39adb5;">(), &#39;</span><span style="color:#91b859;">name</span><span style="color:#39adb5;">&#39;):
+            </span><span style="color:#6182b8;">print</span><span style="color:#39adb5;">(</span><span style="font-style:italic;color:#7c4dff;">f</span><span style="color:#39adb5;">&quot;</span><span style="color:#91b859;">super of Y is </span><span style="color:#39adb5;">{</span><span style="color:#6182b8;">super</span><span style="color:#39adb5;">().</span><span style="color:#6182b8;">name</span><span style="color:#39adb5;">()}&quot;)
+
+        </span><span style="font-style:italic;color:#7c4dff;">return </span><span style="color:#39adb5;">&quot;</span><span style="color:#91b859;">Y</span><span style="color:#39adb5;">&quot;
+
+
+</span><span style="font-style:italic;color:#7c4dff;">class </span><span style="color:#ffb62c;">A</span><span style="color:#39adb5;">(</span><span style="color:#91b859;">X</span><span style="color:#39adb5;">, </span><span style="color:#91b859;">Y</span><span style="color:#39adb5;">):
+    </span><span style="font-style:italic;color:#7c4dff;">def </span><span style="color:#6182b8;">name</span><span style="color:#39adb5;">(</span><span style="color:#f76d47;">self</span><span style="color:#39adb5;">):
+        </span><span style="color:#6182b8;">print</span><span style="color:#39adb5;">(</span><span style="font-style:italic;color:#7c4dff;">f</span><span style="color:#39adb5;">&quot;</span><span style="color:#91b859;">super of A is </span><span style="color:#39adb5;">{</span><span style="color:#6182b8;">super</span><span style="color:#39adb5;">().</span><span style="color:#6182b8;">name</span><span style="color:#39adb5;">()}&quot;)
+        </span><span style="font-style:italic;color:#7c4dff;">return </span><span style="color:#39adb5;">&quot;</span><span style="color:#91b859;">A</span><span style="color:#39adb5;">&quot;
+
+</span><span style="color:#6182b8;">A</span><span style="color:#39adb5;">().</span><span style="color:#6182b8;">name</span><span style="color:#39adb5;">()
+</span></code></pre>
+<p>根据上面的python定义，一共定义了三个类，A, X, Y，一般的理解，是A继承自X, Y，而X和Y之间没有继承关系。</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">A----X --- object
+  `--Y --/
+</span></code></pre>
+<p>但是，在python里面，不是这么算的，python的继承关系最终会压缩成线性关系，按照从左到右继承。
+采用线性继承关系主要是因为python所有类都是继承自object的，这会导致多基类继承时，
+会有多个路径调用最终都走到object对象的函数(<code>A -- X -- object</code> 和 <code>A -- Y -- object</code>)，出现多次调用的情况。</p>
+<p>所以python的实际的继承关系是：</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">A --- X --- Y
+</span></code></pre>
+<p>也就是说，X和Y本来是没有继承关系的，但是，A给他们两个牵了线，在A的实例中，X和Y是存在继承关系的，
+X会继承自Y的函数。如上面这个例子中，<code>A().name()</code>的输出结果是：</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">super of X is Y
+super of A is X
+</span></code></pre><h2 id="fu-za-li-zi">复杂例子</h2>
+<p>前面这个例子比较简单，下面我们使用一个复杂的例子来展示python的完整继承关系，如下：</p>
+<pre style="background-color:#fafafa;">
+<code class="language-python" data-lang="python"><span style="font-style:italic;color:#7c4dff;">class </span><span style="color:#ffb62c;">X</span><span style="color:#39adb5;">: </span><span style="font-style:italic;color:#7c4dff;">pass
+class </span><span style="color:#ffb62c;">Y</span><span style="color:#39adb5;">: </span><span style="font-style:italic;color:#7c4dff;">pass
+class </span><span style="color:#ffb62c;">Z</span><span style="color:#39adb5;">: </span><span style="font-style:italic;color:#7c4dff;">pass
+
+class </span><span style="color:#ffb62c;">A</span><span style="color:#39adb5;">(</span><span style="color:#91b859;">X</span><span style="color:#39adb5;">,</span><span style="color:#91b859;">Y</span><span style="color:#39adb5;">): </span><span style="font-style:italic;color:#7c4dff;">pass
+class </span><span style="color:#ffb62c;">B</span><span style="color:#39adb5;">(</span><span style="color:#91b859;">Y</span><span style="color:#39adb5;">,</span><span style="color:#91b859;">Z</span><span style="color:#39adb5;">): </span><span style="font-style:italic;color:#7c4dff;">pass
+
+class </span><span style="color:#ffb62c;">M</span><span style="color:#39adb5;">(</span><span style="color:#91b859;">B</span><span style="color:#39adb5;">,</span><span style="color:#91b859;">A</span><span style="color:#39adb5;">,</span><span style="color:#91b859;">Z</span><span style="color:#39adb5;">): </span><span style="font-style:italic;color:#7c4dff;">pass
+
+for </span><span style="color:#80cbc4;">m </span><span style="font-style:italic;color:#7c4dff;">in </span><span style="color:#6182b8;">M</span><span style="color:#39adb5;">.</span><span style="color:#6182b8;">mro</span><span style="color:#39adb5;">():
+    </span><span style="color:#6182b8;">print</span><span style="color:#39adb5;">(</span><span style="color:#6182b8;">m</span><span style="color:#39adb5;">)
+</span></code></pre>
+<p>这里，从M的继承关系，可以得到下面继承顺序：</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">M -- B -- A -- Z
+</span></code></pre>
+<p>这里，B由Y, Z 继承过来，可以得出Y优先于Z，而Y和A没有依赖关系，但Y是M的直接继承，所以Y应该放在A的后面。
+所以将B的基类加入后，可以得出下面的继承顺序：</p>
+<pre style="background-color:#fafafa;">
+<code class="language-diff" data-lang="diff"><span style="color:#39adb5;">-</span><span style="color:#e53935;"> M -- B -- A -- Z
+</span><span style="color:#39adb5;">+</span><span style="color:#91b859;"> M -- B -- A -- Y -- Z
+</span></code></pre>
+<p>A由X, Y继承过来，可以得出X优先于Y，将A的基类展开后，得出如下顺序：</p>
+<pre style="background-color:#fafafa;">
+<code class="language-diff" data-lang="diff"><span style="color:#39adb5;">-</span><span style="color:#e53935;"> M -- B -- A -- Y -- Z
+</span><span style="color:#39adb5;">+</span><span style="color:#91b859;"> M -- B -- A -- X -- Y -- Z
+</span></code></pre>
+<p>这个继承关系可以使用<code>mro()</code>函数打印出来，以上例子的输出结果如下：</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">&lt;class &#39;__main__.M&#39;&gt;
+&lt;class &#39;__main__.B&#39;&gt;
+&lt;class &#39;__main__.A&#39;&gt;
+&lt;class &#39;__main__.X&#39;&gt;
+&lt;class &#39;__main__.Y&#39;&gt;
+&lt;class &#39;__main__.Z&#39;&gt;
+&lt;class &#39;object&#39;&gt;
+</span></code></pre>
+<ul>
+<li>mro是<strong>Method Resolution Order</strong>的缩写，用于描述python的函数继承关系</li>
+</ul>
+<h1 id="can-kao">参考</h1>
+<ul>
+<li><a rel="noopener" target="_blank" href="https://www.programiz.com/python-programming/multiple-inheritance">Python Multiple Inheritance</a></li>
+</ul>
+
+    </div>
+
+    
+    
+
+    <div class="post-footer">
+        
+            
+                <div class="post-tags">
+                    
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;tags&#x2F;mro&#x2F;">#mro</a>
+                    
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;tags&#x2F;inheritance&#x2F;">#inheritance</a>
+                    
+                </div>
+            
+            
+                <div class="post-nav">
+                    
+                        <a class="previous" href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;python-default-argument&#x2F;">‹ python默认参数的陷阱</a>
+                    
+                    
+                        <a class="next" href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;os-systemd-automount&#x2F;">通过systemd支持自动挂载 ›</a>
+                    
+                    
+                    
+                </div>
+            
+
+        
+
+    </div>
+
+    
+
+    
+<div class="utterances"></div>
+
+</article>
+
+
+                </div>
+            </main>
+
+            
+            
+        </div>
+
+      
+
+          <script type="text/javascript" src="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;even.js" ></script>
+      
+<script src="https://utteranc.es/client.js"
+        repo="lisongmin/lisongmin.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true});</script>
+
+    </body>
+
+</html>

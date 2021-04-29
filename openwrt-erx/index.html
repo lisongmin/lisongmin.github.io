@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+      <!-- Enable responsiveness on mobile devices-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+      <title>听风小筑 - 在 er-x 上部署 openwrt</title>
+
+      
+
+      
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/slideout/1.0.1/slideout.min.js"></script>
+          
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+
+          <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+          <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-zWYbd0NBwgTsgIdFKVprSfTh1mbMPe5Hz1X3yY4Sd1h/K1cQoUe36OGwAGz/PcDy" crossorigin="anonymous"></script>
+              
+          <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"
+                  onload="renderMathInElement(document.body);"></script>
+              
+          
+      
+
+      
+          <link rel="stylesheet" href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;site.css">
+          
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+          
+      
+
+      
+      
+    </head>
+
+    <body>
+        <div class="container">
+
+            <div id="mobile-navbar" class="mobile-navbar">
+              <div class="mobile-header-logo">
+                <a href="/" class="logo">听风小筑</a>
+              </div>
+              <div class="mobile-navbar-icon icon-out">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+
+            <nav id="mobile-menu" class="mobile-menu slideout-menu slideout-menu-left">
+              <ul class="mobile-menu-list">
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io">
+                            Home
+                        </a>
+                    </li>
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;categories">
+                            Categories
+                        </a>
+                    </li>
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;tags">
+                            Tags
+                        </a>
+                    </li>
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;i-read">
+                            I-Read
+                        </a>
+                    </li>
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;about">
+                            About
+                        </a>
+                    </li>
+                
+              </ul>
+            </nav>
+
+            <header id="header">
+                <div class="logo"><a href="https:&#x2F;&#x2F;lisongmin.github.io">听风小筑</a></div>
+                <nav class="menu">
+                    <ul>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;lisongmin.github.io">
+                                    Home
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;categories">
+                                    Categories
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;tags">
+                                    Tags
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;i-read">
+                                    I-Read
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;about">
+                                    About
+                                </a>
+                            </li>
+                        
+                    </ul>
+                </nav>
+            </header>
+
+            <main>
+                <div class="content" id="mobile-panel">
+                    
+
+
+<div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content always-active">
+        <nav id="TableOfContents">
+            <ul>
+                
+                <li>
+                    <a href="https://lisongmin.github.io/openwrt-erx/#zai-er-x-shang-bu-shu-openwrt" class="toc-link">在 er-x 上部署 openwrt</a>
+                    
+                    <ul>
+                        
+                        <li>
+                            <a href="https://lisongmin.github.io/openwrt-erx/#bei-fen-fen-qu" class="toc-link">备份分区</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://lisongmin.github.io/openwrt-erx/#shua-openwrt-gu-jian" class="toc-link">刷 openwrt 固件</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://lisongmin.github.io/openwrt-erx/#pei-zhi-openwrt" class="toc-link">配置 openwrt</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://lisongmin.github.io/openwrt-erx/#zhe-teng" class="toc-link">折腾</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://lisongmin.github.io/openwrt-erx/#can-kao" class="toc-link">参考</a>
+                        </li>
+                        
+                    </ul>
+                    
+                </li>
+                
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+<article class="post">
+    
+    <header class="post__header">
+        <h1 class="post__title">
+            <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;openwrt-erx&#x2F;">在 er-x 上部署 openwrt</a>
+        </h1>
+        <div class="post__meta">
+            <span class="post__time">2020-04-20</span>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+      <h1 id="zai-er-x-shang-bu-shu-openwrt">在 er-x 上部署 openwrt</h1>
+<p>新入手一台er-x，用作家庭网络的主路由，架设在光猫和家庭网络之间。
+计划刷openwrt，通过开源方案来保证家庭网络的纯洁以及方便统一维护。</p>
+<p>准备工作：</p>
+<ul>
+<li>pc机一台，这里使用linux系统</li>
+<li>er-x 一台</li>
+<li>网线一根</li>
+</ul>
+<h2 id="bei-fen-fen-qu">备份分区</h2>
+<p>参照<a rel="noopener" target="_blank" href="https://openwrt.org/toh/ubiquiti/ubiquiti_edgerouter_x_er-x_ka#backup_the_original_firmware">备份原始固件</a>的方式备份。
+以备在出现问题时，可以恢复。</p>
+<p>这次没有执行这个操作，裸上了^_^!!</p>
+<h2 id="shua-openwrt-gu-jian">刷 openwrt 固件</h2>
+<p>用电脑连接 er-x 的 eth0 口，这个网口在er-x侧默认配置了<code>192.168.1.1</code>，需要在电脑端配置一个同网段的ip以实现通信。
+如果电脑有其他网络也是使用<code>192.168.1.0/24</code>这个网段的地址，最好停用掉这个网络以避免干扰。</p>
+<ol>
+<li>
+<p>配置pc上的ip</p>
+<p>这里通过<code>ip</code>命令配置网络</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">$ sudo ip addr add 192.168.1.5/24 dev br0
+</span></code></pre></li>
+<li>
+<p>下载固件</p>
+<p>根据 <a rel="noopener" target="_blank" href="https://openwrt.org/toh/ubiquiti/ubiquiti_edgerouter_x_er-x_ka#factory_firmware_installation_method">Factory firmware installation method</a> 章节的方式刷如固件，
+这里注意，当前的18.06, 19.07版本都不能刷入，会提示<code>image does not support the device</code></p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">ubnt@ubnt:/tmp$ add system image openwrt-19.07.2-ramips-mt7621-ubnt-erx-initramfs-kernel.bin
+</span><span style="color:#80cbc4;">Checking upgrade image...Upgrade image does not support the device. Upgrade failed.
+</span><span style="color:#80cbc4;">/tmp
+</span></code></pre>
+<p>根据安装方法的提示，下载一个<a rel="noopener" target="_blank" href="https://www.freifunk-winterberg.net/wp-content/uploads/2017/07/lede-ramips-mt7621-ubnt-erx-initramfs-factory.tar">比较老的固件</a>刷入，再升级上来。
+由于有线接er-x，这里通过手机共享的网络下载固件。</p>
+</li>
+<li>
+<p>上传固件到er-x</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">scp lede-ramips-mt7621-ubnt-erx-initramfs-factory.tar ubnt@192.168.1.1:/tmp/
+</span></code></pre>
+<p>默认密码是<code>ubnt</code></p>
+</li>
+<li>
+<p>安装固件</p>
+<p>先登录到er-x里面</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">$ ssh ubnt@192.168.1.1
+</span></code></pre>
+<p>进入 <code>/tmp/</code> 目录</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">ubnt@ubnt:~$ cd /tmp
+</span></code></pre>
+<p>增加固件</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">ubnt@ubnt:/tmp$ add system image lede-ramips-mt7621-ubnt-erx-initramfs-factory.tar
+</span><span style="color:#80cbc4;">Checking upgrade image...Done
+</span><span style="color:#80cbc4;">Preparing to upgrade...Done
+</span><span style="color:#80cbc4;">Copying upgrade image.../usr/bin/ubnt-upgrade: line 580: [: too many arguments
+</span><span style="color:#80cbc4;">Done
+</span><span style="color:#80cbc4;">Removing old image...Done
+</span><span style="color:#80cbc4;">Checking upgrade image...Done
+</span><span style="color:#80cbc4;">Copying config data...Done
+</span><span style="color:#80cbc4;">Finishing upgrade...Done
+</span><span style="color:#80cbc4;">Upgrade completed
+</span></code></pre>
+<p>查看固件情况，应该可以看到新增的固件</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">ubnt@ubnt:/tmp$ show system image
+</span><span style="color:#80cbc4;">The system currently has the following image(s) installed:
+
+</span><span style="color:#80cbc4;">ramips                         r4434-b91a38d                  SNAPSHOT                       (default boot)
+</span><span style="color:#80cbc4;">v1.10.7.5127989.181001.1227    (running image)
+
+</span><span style="color:#80cbc4;">A reboot is needed to boot default image
+</span></code></pre>
+<p>重启使其生效</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">ubnt@ubnt:/tmp$ reboot
+</span><span style="color:#80cbc4;">Proceed with reboot? [confirm]y
+
+</span><span style="color:#80cbc4;">Broadcast message from root@ubnt (pts/0) (Thu Jan  1 01:39:41 2015):
+
+</span><span style="color:#80cbc4;">The system is going down for reboot NOW!
+</span></code></pre></li>
+<li>
+<p>升级固件到最新版本</p>
+<p>需要将网口从<code>eth0</code> 移到 <code>eth1</code>上，因为openwrt默认在这个端口上侦听。
+换网口后，需要检查ip是否还存在，如果不存在，需要再次增加。</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">$ sudo ip addr add 192.168.1.5/24 dev br0
+</span></code></pre>
+<p>下载最新版本固件，当前是19.07.2版本，并上传到er-x上。</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">$ scp 19.07.2/openwrt-19.07.2-ramips-mt7621-ubnt-erx-squashfs-sysupgrade.bin root@192.168.1.1:/tmp/
+</span></code></pre>
+<p>使用<code>root</code>用户登录 openwrt</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">$ ssh root@192.168.1.1
+</span></code></pre>
+<p>升级固件</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">root@LEDE:/tmp# sysupgrade openwrt-19.07.2-ramips-mt7621-ubnt-erx-squashfs-sysupgrade.bin
+</span><span style="color:#80cbc4;">Cannot save config while running from ramdisk.
+</span><span style="color:#80cbc4;">killall: watchdog: no process killed
+</span><span style="color:#80cbc4;">Commencing upgrade. All shell sessions will be closed now.
+</span><span style="color:#80cbc4;">Connection to 192.168.1.1 closed by remote host.
+</span><span style="color:#80cbc4;">Connection to 192.168.1.1 closed.
+</span></code></pre>
+<p>刷新固件需要点时间，等待固件刷新完成。</p>
+</li>
+</ol>
+<h2 id="pei-zhi-openwrt">配置 openwrt</h2>
+<h3 id="she-zhi-rootmi-ma">设置root密码</h3>
+<p>首先，我们需要配置ssh的登录时使用的root密码，保证别人不能随意登录上来。这是很重要的一步。
+密码最好复杂到自己都记不住，这里，使用KeePaasXC来生成密码，并通过<code>passwd</code>命令设置密码。</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;"> $ ssh root@192.168.1.1
+Warning: Permanently added &#39;192.168.1.1&#39; (RSA) to the list of known hosts.
+
+
+BusyBox v1.30.1 () built-in shell (ash)
+
+  _______                     ________        __
+ |       |.-----.-----.-----.|  |  |  |.----.|  |_
+ |   -   ||  _  |  -__|     ||  |  |  ||   _||   _|
+ |_______||   __|_____|__|__||________||__|  |____|
+          |__| W I R E L E S S   F R E E D O M
+ -----------------------------------------------------
+ OpenWrt 19.07.2, r10947-65030d81f3
+ -----------------------------------------------------
+=== WARNING! =====================================
+There is no root password defined on this device!
+Use the &quot;passwd&quot; command to set up a new password
+in order to prevent unauthorized SSH logins.
+--------------------------------------------------
+root@OpenWrt:~# passwd
+</span></code></pre>
+<p>为了方便访问，将ssh 的public key写入到er-x上的<code>/etc/dropbear/authorized_keys</code>文件中，
+这样下次访问时就不需要再次输入密码。</p>
+<h3 id="geng-gai-lan-mo-ren-shi-yong-de-wang-duan">更改 LAN 默认使用的网段</h3>
+<p>内网默认是使用<code>192.168.1.0/24</code>这个网段，如果不使用桥接模式通过pppoe拨号的话，这个网段会和光猫使用的网段重合。
+为了避免网段冲突，将网段改为<code>192.168.2.0/24</code>网段。</p>
+<h3 id="jie-ru-guang-mao">接入光猫</h3>
+<p>openwrt默认已经做好了各种配置，基本不需要修改即可上网，只要把光猫出来的网线接到eth0口即可。</p>
+<h3 id="geng-xin-ruan-jian">更新软件</h3>
+<p>软件可以通过<code>opkg</code>命令来更新，用法和<code>apt</code>类似，</p>
+<ol>
+<li>
+<p>更新软件源</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">$ opkg update
+</span></code></pre></li>
+<li>
+<p>查看变化的软件</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">$ opkg list-upgradable
+</span></code></pre></li>
+<li>
+<p>更新软件包</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">$ opkg upgrade &lt;pkg1 pkg2 ...&gt;
+</span></code></pre></li>
+</ol>
+<p>openwrt没有提供一键式升级的方案，因为路由器本身的内存，存储比较小，一次更新所有的软件比较容易出现问题导致路由器变砖。</p>
+<h2 id="zhe-teng">折腾</h2>
+<p>到这里，openwrt基本安装完成，后面就是折腾自己的东西了，后续可能增加以下内容</p>
+<ul>
+<li>光猫设置桥接模式，由路由器pppoe拨号，关闭光猫的wifi</li>
+<li>部署nginx + acme.sh</li>
+<li>部署v2ray</li>
+<li>wifi roaming (802.11rkv 802.11s)</li>
+</ul>
+<h2 id="can-kao">参考</h2>
+<ul>
+<li><a rel="noopener" target="_blank" href="https://openwrt.org/toh/ubiquiti/ubiquiti_edgerouter_x_er-x_ka">Ubiquiti EdgeRouter X (ER-X), EdgeRouter X-SFP (ER-X-SFP) and EdgePoint R6 (EP-R6)</a></li>
+</ul>
+
+    </div>
+
+    
+    
+
+    <div class="post-footer">
+        
+            
+                <div class="post-tags">
+                    
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;tags&#x2F;er-x&#x2F;">#er-x</a>
+                    
+                </div>
+            
+            
+                <div class="post-nav">
+                    
+                        <a class="previous" href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;os-systemd-networkd&#x2F;">‹ 使用systemd-networkd管理网络</a>
+                    
+                    
+                        <a class="next" href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;openwrt-r6220&#x2F;">在 r6220 上部署 openwrt ›</a>
+                    
+                    
+                    
+                </div>
+            
+
+        
+
+    </div>
+
+    
+
+    
+<div class="utterances"></div>
+
+</article>
+
+
+                </div>
+            </main>
+
+            
+            
+        </div>
+
+      
+
+          <script type="text/javascript" src="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;even.js" ></script>
+      
+<script src="https://utteranc.es/client.js"
+        repo="lisongmin/lisongmin.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true});</script>
+
+    </body>
+
+</html>

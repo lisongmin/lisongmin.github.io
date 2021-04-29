@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://lisongmin.github.io/sitemap.xml

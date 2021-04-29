@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+      <!-- Enable responsiveness on mobile devices-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+      <title>听风小筑 - linux下避免内存耗尽导致系统hang住或频繁读写swap</title>
+
+      
+
+      
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/slideout/1.0.1/slideout.min.js"></script>
+          
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+
+          <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+          <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-zWYbd0NBwgTsgIdFKVprSfTh1mbMPe5Hz1X3yY4Sd1h/K1cQoUe36OGwAGz/PcDy" crossorigin="anonymous"></script>
+              
+          <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"
+                  onload="renderMathInElement(document.body);"></script>
+              
+          
+      
+
+      
+          <link rel="stylesheet" href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;site.css">
+          
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+          
+      
+
+      
+      
+    </head>
+
+    <body>
+        <div class="container">
+
+            <div id="mobile-navbar" class="mobile-navbar">
+              <div class="mobile-header-logo">
+                <a href="/" class="logo">听风小筑</a>
+              </div>
+              <div class="mobile-navbar-icon icon-out">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+
+            <nav id="mobile-menu" class="mobile-menu slideout-menu slideout-menu-left">
+              <ul class="mobile-menu-list">
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io">
+                            Home
+                        </a>
+                    </li>
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;categories">
+                            Categories
+                        </a>
+                    </li>
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;tags">
+                            Tags
+                        </a>
+                    </li>
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;i-read">
+                            I-Read
+                        </a>
+                    </li>
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;about">
+                            About
+                        </a>
+                    </li>
+                
+              </ul>
+            </nav>
+
+            <header id="header">
+                <div class="logo"><a href="https:&#x2F;&#x2F;lisongmin.github.io">听风小筑</a></div>
+                <nav class="menu">
+                    <ul>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;lisongmin.github.io">
+                                    Home
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;categories">
+                                    Categories
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;tags">
+                                    Tags
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;i-read">
+                                    I-Read
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;about">
+                                    About
+                                </a>
+                            </li>
+                        
+                    </ul>
+                </nav>
+            </header>
+
+            <main>
+                <div class="content" id="mobile-panel">
+                    
+
+
+<div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content always-active">
+        <nav id="TableOfContents">
+            <ul>
+                
+                <li>
+                    <a href="https://lisongmin.github.io/os-earlyoom/#linuxxia-bi-mian-nei-cun-hao-jin-dao-zhi-xi-tong-hangzhu-huo-pin-fan-du-xie-swap" class="toc-link">linux下避免内存耗尽导致系统hang住或频繁读写swap</a>
+                    
+                    <ul>
+                        
+                        <li>
+                            <a href="https://lisongmin.github.io/os-earlyoom/#an-zhuang-bu-shu-earlyoom" class="toc-link">安装部署earlyoom</a>
+                        </li>
+                        
+                    </ul>
+                    
+                </li>
+                
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+<article class="post">
+    
+    <header class="post__header">
+        <h1 class="post__title">
+            <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;os-earlyoom&#x2F;">linux下避免内存耗尽导致系统hang住或频繁读写swap</a>
+        </h1>
+        <div class="post__meta">
+            <span class="post__time">2020-05-10</span>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+      <h1 id="linuxxia-bi-mian-nei-cun-hao-jin-dao-zhi-xi-tong-hangzhu-huo-pin-fan-du-xie-swap">linux下避免内存耗尽导致系统hang住或频繁读写swap</h1>
+<p>最近Fedora 32发布，其中有一个新特性启用<a rel="noopener" target="_blank" href="https://github.com/rfjakob/earlyoom">earlyoom</a>.</p>
+<p>这个特性对我来说，是比较感兴趣的，因为之前使用笔记本跑ci的时候，出现过系统不能反应的情况，
+应该是因为多个任务同时运行，编译c++程序导致的。如果有earlyoom，最多是某个编译任务失败，
+而不需要硬重启电脑。</p>
+<p>earlyoom在系统可用内存以及swap都下降到某个点时(默认10%)，给占用内存最多的进程发terminate信号，
+如果可用内存继续下降（到5%)，将发送kill信号终止进程释放内存。</p>
+<h2 id="an-zhuang-bu-shu-earlyoom">安装部署earlyoom</h2>
+<p>这里以arch linux为例介绍整个过程。
+首先是安装，通过以下命令安装：</p>
+<pre style="background-color:#fafafa;">
+<code class="language-bash" data-lang="bash"><span style="font-style:italic;color:#ccd7da;"># pacman -S earlyoom
+</span></code></pre>
+<p>安装完成后，可以修改配置，配置文件在<code>/etc/default/earlyoom</code>中。earlyoom配置比较简单，基本是零配置。
+可能唯一需要注意的是，如果内存太大，建议通过<code>-M</code>指定触发的时机点。通过<code>man earlyoom</code>可以看到完整的帮助。</p>
+<p>默认参数为：</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">EARLYOOM_ARGS=&quot;-r 3600 -n --avoid &#39;(^|/)(init|systemd|Xorg|sshd)$&#39;&quot;
+</span></code></pre>
+<p>这里，增加<code>-m 10 -M 1048576</code>两个参数，将触发terminate的时机限定为<code>min(10%, 1G)</code>，
+这样，避免在大内存的情况下，还有几G内存可用就有进程被强制退出。</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">EARLYOOM_ARGS=&quot;-m 10 -M 1048576 -r 3600 -n --avoid &#39;(^|/)(init|systemd|Xorg|sshd)$&#39;&quot;
+</span></code></pre>
+<p>最后，启动并启用earlyoom服务，完成整个配置。</p>
+<pre style="background-color:#fafafa;">
+<code class="language-bash" data-lang="bash"><span style="font-style:italic;color:#ccd7da;"># systemctl start earlyoom
+# systemctl enable earlyoom
+</span></code></pre>
+    </div>
+
+    
+    
+
+    <div class="post-footer">
+        
+            
+                <div class="post-tags">
+                    
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;tags&#x2F;oom&#x2F;">#oom</a>
+                    
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;tags&#x2F;swap&#x2F;">#swap</a>
+                    
+                </div>
+            
+            
+                <div class="post-nav">
+                    
+                        <a class="previous" href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;openwrt-r6850&#x2F;">‹ 在 r6850 上部署 openwrt</a>
+                    
+                    
+                    
+                    
+                </div>
+            
+
+        
+
+    </div>
+
+    
+
+    
+<div class="utterances"></div>
+
+</article>
+
+
+                </div>
+            </main>
+
+            
+            
+        </div>
+
+      
+
+          <script type="text/javascript" src="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;even.js" ></script>
+      
+<script src="https://utteranc.es/client.js"
+        repo="lisongmin/lisongmin.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true});</script>
+
+    </body>
+
+</html>

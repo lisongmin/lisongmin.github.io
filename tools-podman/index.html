@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+      <!-- Enable responsiveness on mobile devices-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+      <title>听风小筑 - podman 初步使用</title>
+
+      
+
+      
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/slideout/1.0.1/slideout.min.js"></script>
+          
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+
+          <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+          <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-zWYbd0NBwgTsgIdFKVprSfTh1mbMPe5Hz1X3yY4Sd1h/K1cQoUe36OGwAGz/PcDy" crossorigin="anonymous"></script>
+              
+          <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"
+                  onload="renderMathInElement(document.body);"></script>
+              
+          
+      
+
+      
+          <link rel="stylesheet" href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;site.css">
+          
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+          
+      
+
+      
+      
+    </head>
+
+    <body>
+        <div class="container">
+
+            <div id="mobile-navbar" class="mobile-navbar">
+              <div class="mobile-header-logo">
+                <a href="/" class="logo">听风小筑</a>
+              </div>
+              <div class="mobile-navbar-icon icon-out">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+
+            <nav id="mobile-menu" class="mobile-menu slideout-menu slideout-menu-left">
+              <ul class="mobile-menu-list">
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io">
+                            Home
+                        </a>
+                    </li>
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;categories">
+                            Categories
+                        </a>
+                    </li>
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;tags">
+                            Tags
+                        </a>
+                    </li>
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;i-read">
+                            I-Read
+                        </a>
+                    </li>
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;about">
+                            About
+                        </a>
+                    </li>
+                
+              </ul>
+            </nav>
+
+            <header id="header">
+                <div class="logo"><a href="https:&#x2F;&#x2F;lisongmin.github.io">听风小筑</a></div>
+                <nav class="menu">
+                    <ul>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;lisongmin.github.io">
+                                    Home
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;categories">
+                                    Categories
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;tags">
+                                    Tags
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;i-read">
+                                    I-Read
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;about">
+                                    About
+                                </a>
+                            </li>
+                        
+                    </ul>
+                </nav>
+            </header>
+
+            <main>
+                <div class="content" id="mobile-panel">
+                    
+
+
+<div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content always-active">
+        <nav id="TableOfContents">
+            <ul>
+                
+                <li>
+                    <a href="https://lisongmin.github.io/tools-podman/#podman-chu-bu-shi-yong" class="toc-link">podman 初步使用</a>
+                    
+                    <ul>
+                        
+                        <li>
+                            <a href="https://lisongmin.github.io/tools-podman/#an-zhuang-podman" class="toc-link">安装podman</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://lisongmin.github.io/tools-podman/#pei-zhi-subuid-subgid" class="toc-link">配置subuid&#x2F;subgid</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://lisongmin.github.io/tools-podman/#pei-zhi-jing-xiang-yuan" class="toc-link">配置镜像源</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://lisongmin.github.io/tools-podman/#shi-yong-proxy" class="toc-link">使用proxy</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://lisongmin.github.io/tools-podman/#can-kao" class="toc-link">参考</a>
+                        </li>
+                        
+                    </ul>
+                    
+                </li>
+                
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+<article class="post">
+    
+    <header class="post__header">
+        <h1 class="post__title">
+            <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;tools-podman&#x2F;">podman 初步使用</a>
+        </h1>
+        <div class="post__meta">
+            <span class="post__time">2020-01-18</span>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+      <h1 id="podman-chu-bu-shi-yong">podman 初步使用</h1>
+<p>之前主要使用docker，podman已经出来一段时间了，但还没有使用过，
+今天尝尝鲜。</p>
+<h2 id="an-zhuang-podman">安装podman</h2>
+<p>在Arch linux下，直接安装podman即可。</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">sudo pacman -S podman
+</span></code></pre><h2 id="pei-zhi-subuid-subgid">配置subuid/subgid</h2>
+<p>podman支持在非root用户下运行，这需要配置/etc/subuid 和 /etc/subgid，
+使得podman可以将host的用户id映射到container里面去。</p>
+<p>如下是我的配置，更多详细信息可以通过<code>man /etc/subuid</code>查看</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">$ cat /etc/subuid
+
+lsm:100000:65535
+</span></code></pre><pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">$ cat /etc/subgid
+
+lsm:100000:65535
+</span></code></pre>
+<p>修改以上两个文件后，注意podman并不会加载新的变更，需要先执行<code>podman system migrate</code>命令更新。</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">$ podman system migrate
+</span></code></pre>
+<p>这个机制类似于systemd的<code>systemctl daemon-reload</code>？在<code>man podman-system-migrate</code>里面有
+详细的解释：</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">Rootless  Podman  uses  a  pause process to keep the unprivileged namespaces alive.
+This prevents any change to the /etc/subuid and /etc/subgid files from being propagated
+to the rootless containers while the pause process is running.
+</span></code></pre><h2 id="pei-zhi-jing-xiang-yuan">配置镜像源</h2>
+<p>基于国内糟糕的网络状态，从官网下载镜像比较吃力，这个时候，我们会想从国内的镜像源下载镜像，
+在docker中，可以通过<code>registry-mirrors</code>来配置，而在podman中，
+可以通过<code>/etc/containers/registries.conf</code>修改。registries.conf的格式有两个版本，
+版本1不支持镜像，需要改用版本2的格式来配置，如下：</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">unqualified-search-registries = [&quot;docker.io&quot;]
+
+[[registry]]
+prefix = &quot;docker.io&quot;
+insecure = false
+blocked = false
+location = &quot;docker.io&quot;
+[[registry.mirror]]
+location = &quot;hub-mirror.c.163.com&quot;
+[[registry.mirror]]
+location = &quot;registry.docker-cn.com&quot;
+
+</span></code></pre>
+<p>使用这个配置，下载镜像时，会按照如下顺序查找下载：</p>
+<ol>
+<li>hub-mirror.c.163.com</li>
+<li>registry.docker-cn.com</li>
+<li>docker.io</li>
+</ol>
+<p>经过上述配置后，就可以通过国内镜像源拉取镜像了，可以通过以下命令测试：</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">$ podman pull alpine
+</span></code></pre><h2 id="shi-yong-proxy">使用proxy</h2>
+<p>有时候，想在家里拉取公司的镜像，但公司镜像是内部地址，没有对外暴露。
+如果有sshd可以访问公司网络，可以通过ssh建立一个隧道，使用proxy来拉取：</p>
+<ol>
+<li>建立隧道：</li>
+</ol>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">$ ssh -Nfq -D 10800 company.ssh.address
+</span></code></pre>
+<ol start="2">
+<li>通过隧道下载镜像</li>
+</ol>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">$ https_proxy=socks5://127.0.0.1:10800 podman pull uri/image
+</span></code></pre><h2 id="can-kao">参考</h2>
+<ul>
+<li><a rel="noopener" target="_blank" href="https://github.com/containers/image/blob/master/docs/containers-registries.conf.5.md">containers-registries.conf.5.md</a></li>
+</ul>
+
+    </div>
+
+    
+    
+
+    <div class="post-footer">
+        
+            
+                <div class="post-tags">
+                    
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;tags&#x2F;docker&#x2F;">#docker</a>
+                    
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;tags&#x2F;podman&#x2F;">#podman</a>
+                    
+                </div>
+            
+            
+                <div class="post-nav">
+                    
+                        <a class="previous" href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;os-acl-on-directory&#x2F;">‹ 在linux下如何设置一个文件夹让群组可读写</a>
+                    
+                    
+                        <a class="next" href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;os-systemd-ssh-vpn&#x2F;">基于ssh tunnel建立vpn ›</a>
+                    
+                    
+                    
+                </div>
+            
+
+        
+
+    </div>
+
+    
+
+    
+<div class="utterances"></div>
+
+</article>
+
+
+                </div>
+            </main>
+
+            
+            
+        </div>
+
+      
+
+          <script type="text/javascript" src="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;even.js" ></script>
+      
+<script src="https://utteranc.es/client.js"
+        repo="lisongmin/lisongmin.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true});</script>
+
+    </body>
+
+</html>

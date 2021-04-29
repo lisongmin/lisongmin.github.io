@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+      <!-- Enable responsiveness on mobile devices-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+      <title>听风小筑 - boost::circular_buffer 性能对比及用法小结</title>
+
+      
+
+      
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/slideout/1.0.1/slideout.min.js"></script>
+          
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+
+          <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+          <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-zWYbd0NBwgTsgIdFKVprSfTh1mbMPe5Hz1X3yY4Sd1h/K1cQoUe36OGwAGz/PcDy" crossorigin="anonymous"></script>
+              
+          <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"
+                  onload="renderMathInElement(document.body);"></script>
+              
+          
+      
+
+      
+          <link rel="stylesheet" href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;site.css">
+          
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+          
+      
+
+      
+      
+    </head>
+
+    <body>
+        <div class="container">
+
+            <div id="mobile-navbar" class="mobile-navbar">
+              <div class="mobile-header-logo">
+                <a href="/" class="logo">听风小筑</a>
+              </div>
+              <div class="mobile-navbar-icon icon-out">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+
+            <nav id="mobile-menu" class="mobile-menu slideout-menu slideout-menu-left">
+              <ul class="mobile-menu-list">
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io">
+                            Home
+                        </a>
+                    </li>
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;categories">
+                            Categories
+                        </a>
+                    </li>
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;tags">
+                            Tags
+                        </a>
+                    </li>
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;i-read">
+                            I-Read
+                        </a>
+                    </li>
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;about">
+                            About
+                        </a>
+                    </li>
+                
+              </ul>
+            </nav>
+
+            <header id="header">
+                <div class="logo"><a href="https:&#x2F;&#x2F;lisongmin.github.io">听风小筑</a></div>
+                <nav class="menu">
+                    <ul>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;lisongmin.github.io">
+                                    Home
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;categories">
+                                    Categories
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;tags">
+                                    Tags
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;i-read">
+                                    I-Read
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;about">
+                                    About
+                                </a>
+                            </li>
+                        
+                    </ul>
+                </nav>
+            </header>
+
+            <main>
+                <div class="content" id="mobile-panel">
+                    
+
+
+<div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content always-active">
+        <nav id="TableOfContents">
+            <ul>
+                
+                <li>
+                    <a href="https://lisongmin.github.io/cpp-circular-buffer/#boost-circular-buffer-xing-neng-dui-bi-ji-yong-fa-xiao-jie" class="toc-link">boost::circular_buffer 性能对比及用法小结</a>
+                    
+                    <ul>
+                        
+                        <li>
+                            <a href="https://lisongmin.github.io/cpp-circular-buffer/#std-copyde-xiao-lu" class="toc-link">std::copy的效率</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://lisongmin.github.io/cpp-circular-buffer/#circular-buffershi-yong-xin-de" class="toc-link">circular_buffer使用心得</a>
+                        </li>
+                        
+                    </ul>
+                    
+                </li>
+                
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+<article class="post">
+    
+    <header class="post__header">
+        <h1 class="post__title">
+            <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;cpp-circular-buffer&#x2F;">boost::circular_buffer 性能对比及用法小结</a>
+        </h1>
+        <div class="post__meta">
+            <span class="post__time">2019-06-02</span>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+      <h1 id="boost-circular-buffer-xing-neng-dui-bi-ji-yong-fa-xiao-jie">boost::circular_buffer 性能对比及用法小结</h1>
+<p>最近在项目中用到了循环队列的语义，于是引进了boost库的circular_buffer.</p>
+<p>从直观了解，circular_buffer是预分配整块连续内存，并通过维护其首尾指针来实现循环，大部分情况下，性能应该和vector是一致的，
+只有在first指针发生翻转时，会出现性能的损失。</p>
+<p>来自<a rel="noopener" target="_blank" href="http://oldhandsblog.blogspot.com">Kurt Guntheroth</a>的<a rel="noopener" target="_blank" href="https://www.codeproject.com/Articles/1185449/Performance-of-a-Circular-Buffer-vs-Vector-Deque-a">circular_buffer和vector, deque, list的性能比对</a>
+更加清晰的展现了其性能的比对情况，推荐阅读。</p>
+<p>这里引用其中的一些比对结果数据：</p>
+<table><thead><tr><th>操作</th><th>circular_buffer</th><th>vector</th><th>deque</th><th>list</th></tr></thead><tbody>
+<tr><td>assign</td><td>1534</td><td>1162</td><td>10237</td><td>9389</td></tr>
+<tr><td>assign part</td><td>1383</td><td>1050</td><td>7312</td><td>6724</td></tr>
+<tr><td>delete part</td><td>151</td><td>112</td><td>2925</td><td>2665</td></tr>
+<tr><td>insert(end())</td><td>1004</td><td>1074</td><td>7234</td><td>6493</td></tr>
+<tr><td>insert(end()), with reserve</td><td>-</td><td>1032</td><td>-</td><td>-</td></tr>
+<tr><td>insert(begin())</td><td>9147849</td><td>4084888</td><td>13195</td><td>6745</td></tr>
+<tr><td>push_back()</td><td>997</td><td>4724</td><td>6814</td><td>6635</td></tr>
+<tr><td>push_back(), with reserve</td><td>-</td><td>1412</td><td>-</td><td>-</td></tr>
+<tr><td>push_front()</td><td>1212</td><td>-</td><td>6738</td><td>6641</td></tr>
+<tr><td>容器遍历(iterator)</td><td>154</td><td>158</td><td>554</td><td>388</td></tr>
+<tr><td>sort()</td><td>3337.9</td><td>2335.8</td><td>2968.5</td><td>3333.5</td></tr>
+<tr><td>sort() sorted</td><td>954.9</td><td>420.8</td><td>460.5</td><td>1301.5</td></tr>
+<tr><td>search container</td><td>3580</td><td>2452</td><td>3729</td><td>-</td></tr>
+<tr><td>push/pop as queue</td><td>1155</td><td>-</td><td>1848</td><td>8463</td></tr>
+</tbody></table>
+<p>从上面的数据，我们可以看出，circular_buffer在大部分操作上和vector性能接近，
+大部分场景下，使用circular_buffer优于deque和list.</p>
+<p>同时，我们可以看到，往circular_buffer数据中插入一个数据是耗费很大的操作，
+因为它需要对插入位置后的所有数据做一次移动的操作。
+所以，<strong>如果有插入数据的情景，应该避免使用circular_buffer.</strong></p>
+<h2 id="std-copyde-xiao-lu">std::copy的效率</h2>
+<p>针对circular_buffer复制的效率，我通过<a href="../assets/test_circular_buffer.cpp">test_circular_buffer.cpp</a>进行了测试，
+比较了直接使用array_one进行复制以及使用迭代器(begin(), end())进行复制的效率，结果如下：</p>
+<p>4M数据拷贝100次，取最小值，最大值，和平均值，这里单位为微秒(micro seconds)</p>
+<table><thead><tr><th>操作</th><th>最小值</th><th>最大值</th><th>均值</th></tr></thead><tbody>
+<tr><td>copy with c array cost</td><td>181</td><td>1438</td><td>304</td></tr>
+<tr><td>copy with iterator cost</td><td>2175</td><td>4261</td><td>2435</td></tr>
+</tbody></table>
+<p>从上面测试结果可以看到，使用array_one提供的连续内存拷贝会更快，应该是编译器识别到其是连续内存，而采取了优化措施。
+所以，在进行块拷贝时，我们还是需要使用array_one(), array_two()进行复制。</p>
+<h2 id="circular-buffershi-yong-xin-de">circular_buffer使用心得</h2>
+<ul>
+<li>只使用push语义，即往尾部插入数据</li>
+<li>在拷贝一段数据时，推荐转换成c风格的数组后，再通过std::copy拷贝</li>
+<li>circular_buffer默认是固定长度，在满后，会覆盖尾部指针，所以，在插入数据前，需要确定数据有空间，避免数据被覆盖。</li>
+</ul>
+
+    </div>
+
+    
+    
+
+    <div class="post-footer">
+        
+            
+                <div class="post-tags">
+                    
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;tags&#x2F;container&#x2F;">#container</a>
+                    
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;tags&#x2F;memory&#x2F;">#memory</a>
+                    
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;tags&#x2F;circular-buffer&#x2F;">#circular_buffer</a>
+                    
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;tags&#x2F;boost&#x2F;">#boost</a>
+                    
+                </div>
+            
+            
+                <div class="post-nav">
+                    
+                        <a class="previous" href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;timezone&#x2F;">‹ 时区介绍和用法</a>
+                    
+                    
+                        <a class="next" href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;cpp-cheat-sheet&#x2F;">我的c++知识速查表 ›</a>
+                    
+                    
+                    
+                </div>
+            
+
+        
+
+    </div>
+
+    
+
+    
+<div class="utterances"></div>
+
+</article>
+
+
+                </div>
+            </main>
+
+            
+            
+        </div>
+
+      
+
+          <script type="text/javascript" src="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;even.js" ></script>
+      
+<script src="https://utteranc.es/client.js"
+        repo="lisongmin/lisongmin.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true});</script>
+
+    </body>
+
+</html>

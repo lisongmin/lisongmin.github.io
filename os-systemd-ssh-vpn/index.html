@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+      <!-- Enable responsiveness on mobile devices-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+      <title>听风小筑 - 基于ssh tunnel建立vpn</title>
+
+      
+
+      
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/slideout/1.0.1/slideout.min.js"></script>
+          
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+
+          <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+          <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-zWYbd0NBwgTsgIdFKVprSfTh1mbMPe5Hz1X3yY4Sd1h/K1cQoUe36OGwAGz/PcDy" crossorigin="anonymous"></script>
+              
+          <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"
+                  onload="renderMathInElement(document.body);"></script>
+              
+          
+      
+
+      
+          <link rel="stylesheet" href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;site.css">
+          
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+          
+      
+
+      
+      
+    </head>
+
+    <body>
+        <div class="container">
+
+            <div id="mobile-navbar" class="mobile-navbar">
+              <div class="mobile-header-logo">
+                <a href="/" class="logo">听风小筑</a>
+              </div>
+              <div class="mobile-navbar-icon icon-out">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+
+            <nav id="mobile-menu" class="mobile-menu slideout-menu slideout-menu-left">
+              <ul class="mobile-menu-list">
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io">
+                            Home
+                        </a>
+                    </li>
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;categories">
+                            Categories
+                        </a>
+                    </li>
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;tags">
+                            Tags
+                        </a>
+                    </li>
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;i-read">
+                            I-Read
+                        </a>
+                    </li>
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;about">
+                            About
+                        </a>
+                    </li>
+                
+              </ul>
+            </nav>
+
+            <header id="header">
+                <div class="logo"><a href="https:&#x2F;&#x2F;lisongmin.github.io">听风小筑</a></div>
+                <nav class="menu">
+                    <ul>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;lisongmin.github.io">
+                                    Home
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;categories">
+                                    Categories
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;tags">
+                                    Tags
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;i-read">
+                                    I-Read
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;about">
+                                    About
+                                </a>
+                            </li>
+                        
+                    </ul>
+                </nav>
+            </header>
+
+            <main>
+                <div class="content" id="mobile-panel">
+                    
+
+
+<div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content always-active">
+        <nav id="TableOfContents">
+            <ul>
+                
+                <li>
+                    <a href="https://lisongmin.github.io/os-systemd-ssh-vpn/#ji-yu-ssh-tunneljian-li-vpn" class="toc-link">基于ssh tunnel建立vpn</a>
+                    
+                    <ul>
+                        
+                        <li>
+                            <a href="https://lisongmin.github.io/os-systemd-ssh-vpn/#pei-zhi-tunwang-luo" class="toc-link">配置TUN网络</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://lisongmin.github.io/os-systemd-ssh-vpn/#qi-dong-vpn" class="toc-link">启动vpn</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://lisongmin.github.io/os-systemd-ssh-vpn/#kai-qi-ssh-tunnel" class="toc-link">开启ssh tunnel</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://lisongmin.github.io/os-systemd-ssh-vpn/#can-kao" class="toc-link">参考</a>
+                        </li>
+                        
+                    </ul>
+                    
+                </li>
+                
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+<article class="post">
+    
+    <header class="post__header">
+        <h1 class="post__title">
+            <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;os-systemd-ssh-vpn&#x2F;">基于ssh tunnel建立vpn</a>
+        </h1>
+        <div class="post__meta">
+            <span class="post__time">2020-02-04</span>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+      <h1 id="ji-yu-ssh-tunneljian-li-vpn">基于ssh tunnel建立vpn</h1>
+<p>最近这场疫情，导致远程办公成为大部分公司的选择，最简单的远程方式是通过ssh tunnel的动态端口转发方式，构建socks5代理.
+但这种模式需要每个应用都以代理方式运行，不太方便。而badvpn这个软件可以将socks代理转成vpn，从而实现无缝访问公司内网。</p>
+<p>这里介绍通过ssh, <a rel="noopener" target="_blank" href="https://github.com/ambrop72/badvpn">badvpn</a>, systemd-networkd共同构建vpn的方案。</p>
+<h2 id="pei-zhi-tunwang-luo">配置TUN网络</h2>
+<p>这里通过systemd-networkd来管理网络，可以通过NetDev来创建tun设备，如下：</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">$ cat /etc/systemd/network/30-sshtun.netdev
+
+[NetDev]
+Name=sshtun
+Kind=tun
+Description=ssh tunnel
+
+[Tun]
+User=lsm
+</span></code></pre>
+<p>这里注意User后跟的用户名是tun设备的属主，这样后续就可以使用这个用户运行<code>badvpn-tun2socks</code>，
+如果不设置用户，那只能使用root用户来运行<code>badvpn-tun2socks</code>.</p>
+<p>tun设备配置好后，开始配置网络，如下：</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">$ cat /etc/systemd/network/30-sshtun.network
+
+[Match]
+Name=sshtun
+
+[Network]
+Address=10.4.199.4/24
+
+[Route]
+Gateway=10.4.199.1
+Destination=192.168.33.0/24
+
+[Route]
+Gateway=10.4.199.1
+Destination=192.168.34.0/24
+</span></code></pre>
+<p>这里，</p>
+<ul>
+<li><code>Address=10.4.199.4/24</code> 指定网卡上使用的静态ip</li>
+<li><code>Gateway=10.4.199.1</code> 是badvpn的ip，同时也是vpn的网关ip</li>
+<li><code>Destination=192.168.34.0/24</code>, <code>Destination=192.168.33.0/24</code> 是远端(公司)的网段，这里写了两个<code>[Route]</code>章节，
+表示有两条路由，如果有更多的路由，按照同样的方式增加</li>
+</ul>
+<p>到这里，网络部分配置完成。执行<code>systemctl restart systemd-networkd</code>使配置生效。重启后，执行<code>ip addr</code>可以看到新增的设备，
+如下：</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">24: sshtun: &lt;NO-CARRIER,POINTOPOINT,MULTICAST,NOARP,UP&gt; mtu 1500 qdisc fq_codel state DOWN group default qlen 500
+    link/none
+    inet6 fe80::9bba:710d:bd04:b907/64 scope link stable-privacy
+       valid_lft forever preferred_lft forever
+</span></code></pre>
+<p>可以看到，sshtun设备上并没有ip存在，这是因为vpn是sshtun的承载，vpn还没有启动，承载不存在，就像是网线没有插上，所以network不会生效。</p>
+<h2 id="qi-dong-vpn">启动vpn</h2>
+<p>接下来开始启动vpn</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">badvpn-tun2socks --tundev sshtun --netif-ipaddr 10.4.199.1 --netif-netmask 255.255.255.0 --socks-server-addr localhost:10800
+</span></code></pre>
+<ul>
+<li><code>--tundev</code> 指定tun设备的名字，这个需要和上一步NetDev中的设备名一致</li>
+<li><code>--netif-ipaddr</code> 是vpn的ip</li>
+<li><code>--socks-server-addr</code> 指定的是socks5代理的地址</li>
+</ul>
+<p>启动后，再次执行<code>ip addr show dev sshtun</code>，可以看到ip已经存在，如下：</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">24: sshtun: &lt;POINTOPOINT,MULTICAST,NOARP,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 500
+    link/none
+    inet 10.4.199.4/24 brd 10.4.199.255 scope global sshtun
+       valid_lft forever preferred_lft forever
+</span></code></pre><h2 id="kai-qi-ssh-tunnel">开启ssh tunnel</h2>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">ssh -Nfq -D 10800 user@ssh.server
+</span></code></pre>
+<p>到这里，vpn已经通了，可以通过ssh直接访问公司内网服务器，或直接使用浏览器访问公司内网网站。</p>
+<p>但是，这个配置还有以下问题：</p>
+<ol>
+<li>这个vpn只能转发tcp请求，不能处理udp请求，所以，不能ping公司内网，这个需要服务端的支持，后续解决。</li>
+<li>这里没有DNS配置，如果公司内网https需要域名解析，需要自行更改dns配置。</li>
+</ol>
+<p>最后，建立vpn和ssh隧道可以考虑做成systemd服务，举例如下：</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;"> $ cat ~/.config/systemd/user/ssh-to-company.service
+
+[Unit]
+Description=ssh tunnel to company
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/autossh -M 0 -o ServerAliveInterval=45 -o ServerAliveCountMax=2 -TN -D 10800 user@ssh.server
+
+[Install]
+WantedBy=default.target
+</span></code></pre>
+<p>这里，如果直接使用ssh，不能在连接中断时，自动重连，所以，一般会使用autossh，这个辅助程序会感知tunnel的状态，
+并在需要时自动重启ssh.</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">$ cat ~/.config/systemd/user/vpn-to-company.service
+
+[Unit]
+Description=tun2socks to company
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/badvpn-tun2socks --tundev sshtun --netif-ipaddr 10.4.199.1 --netif-netmask 255.255.255.0 --socks-server-addr localhost:10800
+
+[Install]
+WantedBy=default.target
+</span></code></pre>
+<p>配置完成后，设置为用户登录后自启动</p>
+<pre style="background-color:#fafafa;">
+<code><span style="color:#80cbc4;">systemctl --user enable ssh-to-company.service
+systemctl --user enable vpn-to-company.service
+</span></code></pre><h2 id="can-kao">参考</h2>
+<ul>
+<li><a rel="noopener" target="_blank" href="https://wiki.archlinux.org/index.php/VPN_over_SSH">vpn over ssh</a></li>
+<li><a rel="noopener" target="_blank" href="https://github.com/ambrop72/badvpn/wiki/Tun2socks">badvpn tun2socks</a></li>
+<li><a rel="noopener" target="_blank" href="https://wiki.archlinux.org/index.php/OpenSSH#Autossh_-_automatically_restarts_SSH_sessions_and_tunnels">autossh on archwiki</a></li>
+</ul>
+
+    </div>
+
+    
+    
+
+    <div class="post-footer">
+        
+            
+                <div class="post-tags">
+                    
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;tags&#x2F;badvpn&#x2F;">#badvpn</a>
+                    
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;tags&#x2F;ssh&#x2F;">#ssh</a>
+                    
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;tags&#x2F;tunnel&#x2F;">#tunnel</a>
+                    
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;tags&#x2F;systemd&#x2F;">#systemd</a>
+                    
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;tags&#x2F;network&#x2F;">#network</a>
+                    
+                        <a href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;tags&#x2F;vpn&#x2F;">#vpn</a>
+                    
+                </div>
+            
+            
+                <div class="post-nav">
+                    
+                        <a class="previous" href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;tools-podman&#x2F;">‹ podman 初步使用</a>
+                    
+                    
+                        <a class="next" href="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;tools-nginx-proxy-pass&#x2F;">nginx proxy_pass用法记录 ›</a>
+                    
+                    
+                    
+                </div>
+            
+
+        
+
+    </div>
+
+    
+
+    
+<div class="utterances"></div>
+
+</article>
+
+
+                </div>
+            </main>
+
+            
+            
+        </div>
+
+      
+
+          <script type="text/javascript" src="https:&#x2F;&#x2F;lisongmin.github.io&#x2F;even.js" ></script>
+      
+<script src="https://utteranc.es/client.js"
+        repo="lisongmin/lisongmin.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true});</script>
+
+    </body>
+
+</html>
